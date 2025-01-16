@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIIT Workout App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #timer {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>HIIT Workout App</h1>
+
+    <h2>Wähle deinen Tag</h2>
+    <button onclick="selectDay('day1')">Tag 1: Bizeps & Trizeps</button>
+    <button onclick="selectDay('day2')">Tag 2: Schultern & Unterarme</button>
+    <button onclick="selectDay('day3')">Tag 3: Ganzheitliches Armtraining</button>
+
+    <div id="workout" style="display:none;">
+        <h2 id="exercise-name"></h2>
+        <p id="set-info"></p>
+        <p id="reps-info"></p>
+        <button id="done-button" onclick="nextSet()">Fertig</button>
+        <div id="timer" style="display:none;">30</div>
+    </div>
+
+    <audio id="alarm-sound" src="https://bigsoundbank.com/UPLOAD/mp3/2065.mp3" preload="auto"></audio>
+    <audio id="exercise-complete-sound" src="https://bigsoundbank.com/UPLOAD/mp3/2483.mp3" preload="auto"></audio>
+    <audio id="workout-complete-sound" src="https://bigsoundbank.com/UPLOAD/mp3/2485.mp3" preload="auto"></audio>
+
+    <script>
+        const workouts = {
+            day1: [
+                { name: 'Bizepscurls mit Widerstandsbändern', sets: 3, reps: '12-15' },
+                { name: 'Overhead-Trizepsstrecken', sets: 3, reps: '12-15' },
+                { name: 'Hammer Curls', sets: 3, reps: '12-15' },
+                { name: 'Liegestütze', sets:4, reps:'25' }
+            ],
+            day2: [
+                { name: 'Frontheben mit Widerstandsbändern', sets: 3, reps: '12-15' },
+                { name: 'Seitheben', sets: 3, reps: '12-15' },
+                { name: 'Reverse Bizepscurls', sets: 3, reps: '12-15' }
+            ],
+            day3: [
+                { name: 'Trizeps-Kickbacks', sets: 3, reps: '12-15' },
+                { name: '21er Bizepscurls', sets: 3, reps: '7-7-7' },
+                { name: 'Face Pulls mit Bändern', sets: 3, reps: '12-15' }
+            ]
+        };
+
+        let selectedWorkout = [];
+        let currentExerciseIndex = 0;
+        let currentSet = 0;
+
+        function selectDay(day) {
+            selectedWorkout = workouts[day];
+            currentExerciseIndex = 0;
+            currentSet = 0;
+            document.getElementById('workout').style.display = 'block';
+            showExercise();
+        }
+
+        function showExercise() {
+            const exercise = selectedWorkout[currentExerciseIndex];
+            document.getElementById('exercise-name').textContent = exercise.name;
+            document.getElementById('set-info').textContent = `Satz: ${currentSet + 1}/${exercise.sets}`;
+            document.getElementById('reps-info').textContent = `Wiederholungen: ${exercise.reps}`;
+            document.getElementById('done-button').style.display = 'block';
+            document.getElementById('timer').style.display = 'none';
+        }
+
+        function nextSet() {
+            const exercise = selectedWorkout[currentExerciseIndex];
+            if (currentSet < exercise.sets - 1) {
+                startTimer(() => {
+                    currentSet++;
+                    showExercise();
+                });
+            } else {
+                playExerciseCompleteSound();
+                startTimer(() => {
+                    currentSet = 0;
+                    if (currentExerciseIndex < selectedWorkout.length - 1) {
+                        currentExerciseIndex++;
+                        showExercise();
+                    } else {
+                        playWorkoutCompleteSound();
+                        alert('Workout abgeschlossen!');
+                        resetWorkout();
+                    }
+                });
+            }
+        }
+
+        function startTimer(callback) {
+            let timeLeft = 1;
+            document.getElementById('timer').textContent = timeLeft;
+            document.getElementById('timer').style.display = 'block';
+            document.getElementById('done-button').style.display = 'none';
+
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').textContent = timeLeft;
+
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    playAlarm();
+                    callback();
+                }
+            }, 1000);
+        }
+
+        function playAlarm() {
+            const alarmSound = document.getElementById('alarm-sound');
+            alarmSound.play();
+        }
+
+        function playExerciseCompleteSound() {
+            const exerciseCompleteSound = document.getElementById('exercise-complete-sound');
+            exerciseCompleteSound.play();
+        }
+
+        function playWorkoutCompleteSound() {
+            const workoutCompleteSound = document.getElementById('workout-complete-sound');
+            workoutCompleteSound.play();
+        }
+
+        function resetWorkout() {
+            document.getElementById('workout').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

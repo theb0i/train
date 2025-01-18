@@ -115,6 +115,7 @@
         <p id="reps-info" style="display:none;"></p>
         <button id="done-button" style="display:none;" onclick="nextSet()">Fertig</button>
         <div id="timer" style="display:none;">30</div>
+        <p id="next-exercise" style="margin-top: 20px;"></p>
     </div>
 
     <audio id="alarm-sound" src="https://bigsoundbank.com/UPLOAD/mp3/2065.mp3" preload="auto"></audio>
@@ -189,7 +190,11 @@
             document.getElementById('set-info').style.display = 'block';
             document.getElementById('reps-info').style.display = 'block';
             document.getElementById('done-button').style.display = 'block';
-        
+
+            const nextExercise = selectedWorkout[currentExerciseIndex + 1];
+            const nextExerciseInfo = nextExercise ? `Als nächstes: ${nextExercise.name}` : 'Das war die letzte Übung!';
+            document.getElementById('next-exercise').textContent = nextExerciseInfo;
+
             document.getElementById('exercise-name').textContent = exercise.name;
             document.getElementById('set-info').textContent = `Satz: ${currentSet + 1}/${exercise.sets}`;
             document.getElementById('reps-info').textContent = `Wiederholungen: ${exercise.reps}`;
@@ -218,7 +223,7 @@
         }
         
         function startTimer(callback) {
-            let timeLeft = 30;
+            let timeLeft = 2;
             const timer = document.getElementById('timer');
             timer.style.display = 'block';
             timer.textContent = timeLeft;
@@ -269,6 +274,8 @@
             document.getElementById('reps-info').style.display = 'none';
             document.getElementById('done-button').style.display = 'none';
             document.getElementById('timer').style.display = 'none';
+            document.getElementById('next-exercise').textContent = '';
+
         
             const workoutCompleteSound = document.getElementById('workout-complete-sound');
             workoutCompleteSound.play();

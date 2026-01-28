@@ -102,9 +102,9 @@
 <body>
  
     <div class="container">
-        <button onclick="selectDay('day1', this)">Tag 1: Bizeps & Trizeps</button>
-        <button onclick="selectDay('day2', this)">Tag 2: Schultern & Unterarme</button>
-        <button onclick="selectDay('day3', this)">Tag 3: Ganzheitliches Armtraining</button>
+        <button onclick="selectDay('day1', this)">Schulterheilung</button>
+        <button onclick="selectDay('day2', this)">Bizeps + Bein</button>
+        <button onclick="selectDay('day3', this)">Trizeps + Bauch</button>
     </div>
 
     <div id="workout" style="display:none;">
@@ -125,22 +125,29 @@
     <script>
         const workouts = {
             day1: [
-                { name: 'Bizepscurls mit Widerstandsbändern', sets: 3, reps: '12-15' },
-                { name: 'Overhead-Trizepsstrecken', sets: 3, reps: '12-15' },
-                { name: 'Hammer Curls', sets: 3, reps: '12-15' },
-                { name: 'Liegestütze', sets: 4, reps: '25' }
+                { name: 'Pendelübung', sets: 2, reps: '60s-90s' },
+                { name: 'Schulterblatt-Retraktion', sets: 3, reps: '10' },
+                { name: 'Isometrische Außenrotation', sets: 3, reps: '10 (5 s)' },
+                { name: 'Brust-Dehnung', sets: 2, reps: '30s' }
             ],
             day2: [
-                { name: 'Frontheben mit Widerstandsbändern', sets: 3, reps: '12-15' },
-                { name: 'Seitheben', sets: 3, reps: '12-15' },
-                { name: 'Reverse Bizepscurls', sets: 3, reps: '12-15' },
-                { name: 'Sit-Ups', sets: 4, reps: '25' }
+                { name: 'Hammer Curls', sets: 3, reps: '12-15' },
+                { name: 'Band Curls (Rücken an Wand)', sets: 4, reps: '12–15' },
+                { name: 'Isometrischer Bizeps Hold', sets: 3, reps: '20–30 s' },
+                { name: '21er modifiziert', sets: 2, reps: '0-90° sauber und langsam' },
+                { name: 'Bulgarian Split Squats', sets: 4, reps: '10' },
+                { name: 'Squats', sets: 4, reps: '15' },
+                { name: 'Wadenheben', sets: 4, reps: '15' }
             ],
             day3: [
-                { name: 'Trizeps-Kickbacks', sets: 3, reps: '12-15' },
-                { name: '21er Bizepscurls', sets: 3, reps: '7-7-7' },
-                { name: 'Face Pulls mit Bändern', sets: 3, reps: '12-15' },
-                { name: 'Kniebeuge', sets: 4, reps: '25' }
+                { name: 'Trizeps Push-down', sets: 4, reps: '12-15' },
+                { name: 'Enger Floor Press (DB/BB)', sets: 3, reps: '10-12' },
+                { name: 'Isometrischer Trizeps-Hold', sets: 3, reps: '20-30s' },
+                { name: 'Band-Pulse Push-down', sets: 1, reps: '60-90s' },
+                { name: 'Reverse Crunch', sets: 4, reps: '12-15' },
+                { name: 'Raising Legs', sets: 1, reps: '25' },
+                { name: 'Hollow Hold', sets: 3, reps: '20-30s' }
+                
             ]
         };
         

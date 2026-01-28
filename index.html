@@ -245,10 +245,34 @@
                 playAlarm();
                 timer.style.display = 'none';
                 skipButton.remove();
+                addTenButton.remove();
+                addThirtyButton.remove();
                 document.getElementById('done-button').style.display = 'block';
                 callback();
             };
             document.getElementById('workout').appendChild(skipButton);
+        
+            const addTenButton = document.createElement('button');
+            addTenButton.textContent = '+10s';
+            addTenButton.id = 'add-ten-button';
+            addTenButton.style.marginLeft = '5px';
+            addTenButton.style.marginTop = '10px';
+            addTenButton.onclick = () => {
+                timeLeft += 10;
+                timer.textContent = timeLeft;
+            };
+            document.getElementById('workout').appendChild(addTenButton);
+        
+            const addThirtyButton = document.createElement('button');
+            addThirtyButton.textContent = '+30s';
+            addThirtyButton.id = 'add-thirty-button';
+            addThirtyButton.style.marginLeft = '5px';
+            addThirtyButton.style.marginTop = '10px';
+            addThirtyButton.onclick = () => {
+                timeLeft += 30;
+                timer.textContent = timeLeft;
+            };
+            document.getElementById('workout').appendChild(addThirtyButton);
         
             const timerInterval = setInterval(() => {
                 timeLeft--;
@@ -258,6 +282,8 @@
                     clearInterval(timerInterval);
                     timer.style.display = 'none';
                     skipButton.remove();
+                    addTenButton.remove();
+                    addThirtyButton.remove();
                     document.getElementById('done-button').style.display = 'block';
                     playAlarm();
                     callback();
